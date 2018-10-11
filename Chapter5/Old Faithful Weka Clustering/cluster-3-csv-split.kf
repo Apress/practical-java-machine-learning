@@ -1,0 +1,225 @@
+{
+	"flow_name" : "cluster-3-csv-split",
+	"steps" : [
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer"
+			},
+			"connections" : {
+			},
+			"coordinates" : "876,251"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note",
+				"noteText" : "Double click to \nconfigure with \nan CSV dataset."
+			},
+			"connections" : {
+			},
+			"coordinates" : "33,279"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2",
+				"noteText" : "Choose train-test\npercentage.\nDouble click to \nconfigure folds."
+			},
+			"connections" : {
+			},
+			"coordinates" : "186,288"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note3",
+				"noteText" : "EM clustering.\nDouble click \nto configure."
+			},
+			"connections" : {
+			},
+			"coordinates" : "362,145"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note4",
+				"noteText" : "K-means Clustering. \nDouble click to\nconfigure."
+			},
+			"connections" : {
+			},
+			"coordinates" : "416,344"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note5",
+				"noteText" : "Computes evaluation\nresults."
+			},
+			"connections" : {
+			},
+			"coordinates" : "557,184"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note6",
+				"noteText" : "Right click and\nselect \"Show results\""
+			},
+			"connections" : {
+			},
+			"coordinates" : "853,339"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note8",
+				"noteText" : "<html><b>NOTE: This is a 3 clusterer comparison</b> \nIt loads a CSV file. \nClustering is performed for:\nEM\nK-Means\nDBSCAN\n</html>"
+			},
+			"connections" : {
+			},
+			"coordinates" : "42,56"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.CSVLoader",
+					"filePath" : "Z:/Book - Practical Java ML Projects/old-faithful/old-faithful-data4.csv",
+					"useRelativePath" : false,
+					"options" : "-format \"yyyy-MM-dd\\'T\\'HH:mm:ss\" -M ? -B 100 -E \"\\\",\\'\" -F ,"
+				},
+				"name" : "CSVLoader"
+			},
+			"connections" : {
+				"dataSet" : [
+					"TrainTestSplitMaker"
+				]
+			},
+			"coordinates" : "53,190"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note42",
+				"noteText" : "DBSCAN Clustering. \nDouble click to\nconfigure."
+			},
+			"connections" : {
+			},
+			"coordinates" : "419,510"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.EM",
+					"options" : "-I 100 -N -1 -X 10 -max -1 -ll-cv 1.0E-6 -ll-iter 1.0E-6 -M 1.0E-6 -K 10 -num-slots 1 -S 100"
+				},
+				"loadClustererFileName" : "",
+				"name" : "1:EM"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"1:ClustererPerformanceEvaluator"
+				]
+			},
+			"coordinates" : "358,57"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.DBSCAN",
+					"options" : "-E 0.09 -M 10 -A \"weka.core.EuclideanDistance -R first-last\""
+				},
+				"loadClustererFileName" : "",
+				"name" : "3:DBSCAN"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"3:ClustererPerformanceEvaluator3"
+				]
+			},
+			"coordinates" : "447,427"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "1:ClustererPerformanceEvaluator"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "558,57"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "2:ClustererPerformanceEvaluator2"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "607,251"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "3:ClustererPerformanceEvaluator3"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "616,442"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TrainTestSplitMaker",
+			"properties" : {
+				"name" : "TrainTestSplitMaker",
+				"preserveOrder" : false,
+				"seed" : "1234",
+				"trainPercent" : "66"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"1:EM",
+					"3:DBSCAN",
+					"SimpleKMeans"
+				],
+				"testSet" : [
+					"1:EM",
+					"3:DBSCAN",
+					"SimpleKMeans"
+				]
+			},
+			"coordinates" : "211,195"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.SimpleKMeans",
+					"options" : "-init 0 -max-candidates 100 -periodic-pruning 10000 -min-density 2.0 -t1 -1.25 -t2 -1.0 -N 2 -A \"weka.core.EuclideanDistance -R first-last\" -I 500 -num-slots 1 -S 10"
+				},
+				"loadClustererFileName" : "",
+				"name" : "SimpleKMeans"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"2:ClustererPerformanceEvaluator2"
+				]
+			},
+			"coordinates" : "417,243"
+		}
+	]
+}

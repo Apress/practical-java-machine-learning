@@ -1,0 +1,9 @@
+@relation old-faithful_clustered
+
+@attribute Instance_number numeric
+@attribute eruptions numeric
+@attribute waiting numeric
+@attribute Cluster {cluster0,cluster1}
+
+@data
+0,3.6,79,cluster0
