@@ -14,3 +14,8 @@ Release v1.0 corresponds to the code in the published book, without corrections 
 ## Contributions
 
 See the file Contributing.md for more information on how you can contribute to this repository.
+
+## Authors Github Page
+
+There are some additional markdown files for the book projects located at:
+https://github.com/Wickapps/Practical-Java-ML
